@@ -6,9 +6,18 @@
     //let helloLabel: createjs.Text;
     var helloLabel;
     var clickMeButton;
+    var assetManager;
+    var assetManifest;
+    assetManifest = [
+        { id: "clickMeButton", src: "./Assets/button.png" }
+    ];
     function Init() {
         console.log("Initializing Start");
-        Start();
+        assetManager = new createjs.LoadQueue();
+        assetManager.installPlugin(createjs.Sound);
+        assetManager.loadManifest(assetManifest);
+        assetManager.on("complete", Start, this);
+        //Start();
     }
     function Start() {
         console.log("Starting Application...");
@@ -35,7 +44,7 @@
         helloLabel = new objects.Label("Hello Class!", "40px", "Consolas", "#000000", 320, 240, true);
         //helloLabel.x = 100;
         //helloLabel.y = 100;
-        clickMeButton = new objects.Button("./Assets/button.png", 320, 340);
+        clickMeButton = new objects.Button(assetManager, "clickMeButton", 320, 340);
         clickMeButton.regY = 50;
         clickMeButton.regX = 50;
         clickMeButton.on("click", clickMeButtonClicked);

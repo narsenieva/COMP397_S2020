@@ -10,9 +10,22 @@
     let helloLabel: objects.Label;
     let clickMeButton: objects.Button;
 
+    let assetManager: createjs.LoadQueue;
+    let assetManifest: any[];
+
+    assetManifest = [
+        {id: "clickMeButton", src:"./Assets/button.png"}
+    ];
+
     function Init(){
         console.log("Initializing Start");
-        Start();
+
+        assetManager = new createjs.LoadQueue();
+        assetManager.installPlugin(createjs.Sound);
+        assetManager.loadManifest(assetManifest);
+        assetManager.on("complete", Start, this);
+
+        //Start();
     }
 
     function Start() {
@@ -46,7 +59,7 @@
         //helloLabel.x = 100;
         //helloLabel.y = 100;
 
-        clickMeButton = new objects.Button("./Assets/button.png", 320, 340);
+        clickMeButton = new objects.Button(assetManager, "clickMeButton", 320, 340);
         clickMeButton.regY = 50;
         clickMeButton.regX = 50;
         clickMeButton.on("click", clickMeButtonClicked);
