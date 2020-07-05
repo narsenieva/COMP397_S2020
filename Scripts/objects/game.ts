@@ -1,8 +1,8 @@
 module objects {
     export class Game {
-        // Global variables
+        // GLOBAL VARIABLES
         public static stage: createjs.Stage;
         public static assetManager: createjs.LoadQueue;
-        public static currentScene: config.Scene;
+        public static currentScene: number;
     }
 }

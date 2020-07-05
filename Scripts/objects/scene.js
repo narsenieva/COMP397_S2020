@@ -15,7 +15,7 @@ var objects;
 (function (objects) {
     var Scene = /** @class */ (function (_super) {
         __extends(Scene, _super);
-        // Construactor
+        // Constructor
         function Scene(assetManager) {
             var _this = _super.call(this) || this;
             _this.assetManager = assetManager;

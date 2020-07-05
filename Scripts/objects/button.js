@@ -15,8 +15,8 @@ var objects;
 (function (objects) {
     var Button = /** @class */ (function (_super) {
         __extends(Button, _super);
-        //Variables
-        // Constructors
+        // Variables
+        // Constructor
         function Button(assetManager, imageString, x, y) {
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
@@ -30,12 +30,12 @@ var objects;
             return _this;
         }
         // Methods
-        //Event handlers
+        // Event Handlers
         Button.prototype.mouseOver = function () {
             this.alpha = 0.7;
         };
         Button.prototype.mouseOut = function () {
-            this.alpha = 1;
+            this.alpha = 1.0;
         };
         return Button;
     }(createjs.Bitmap));

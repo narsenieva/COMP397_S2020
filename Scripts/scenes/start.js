@@ -23,14 +23,18 @@ var scenes;
         }
         // Methods
         StartScene.prototype.Start = function () {
-            //Initialize objects for a scene
+            // Initialize our objects for this scene
             this.background = new objects.Background(this.assetManager);
             this.welcomeLabel = new objects.Label("Welcome to School!", "60px", "Consolas", "#FFFFFF", 320, 240, true);
-            this.startButton = new objects.Button(this.assetManager, "startButton", 320, 300);
+            // NOTE: PreloadJS manifest id
+            this.startButton = new objects.Button(this.assetManager, "nextButton", 320, 300);
             this.Main();
         };
-        StartScene.prototype.Update = function () { };
+        StartScene.prototype.Update = function () {
+            // this.background.Update();
+        };
         StartScene.prototype.Main = function () {
+            // Add items to the scene
             this.addChild(this.background);
             this.addChild(this.welcomeLabel);
             this.addChild(this.startButton);

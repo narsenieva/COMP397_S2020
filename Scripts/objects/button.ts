@@ -1,8 +1,8 @@
 module objects {
     export class Button extends createjs.Bitmap {
-        //Variables
-        // Constructors
-        constructor(assetManager:createjs.LoadQueue, imageString: string, x:number = 0, y:number = 0) {
+        // Variables
+        // Constructor
+        constructor(assetManager:createjs.LoadQueue, imageString:string, x:number = 0, y:number = 0) {
             super(assetManager.getResult(imageString));
 
             // Default position
@@ -14,15 +14,13 @@ module objects {
             this.on("mouseout", this.mouseOut);
         }
         // Methods
-
-        //Event handlers
-
+        // Event Handlers
         private mouseOver():void {
             this.alpha = 0.7;
         }
 
         private mouseOut():void {
-            this.alpha = 1;
+            this.alpha = 1.0;
         }
     }
 }

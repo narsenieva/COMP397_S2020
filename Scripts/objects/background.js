@@ -15,20 +15,36 @@ var objects;
 (function (objects) {
     var Background = /** @class */ (function (_super) {
         __extends(Background, _super);
-        // Variables
         // Constructor
         function Background(assetManager) {
             var _this = _super.call(this, assetManager.getResult("background")) || this;
+            // Variables
+            _this.speedY = 0.5;
+            console.log("Creating the background");
             _this.Start();
             return _this;
         }
-        // Methods
-        Background.prototype.Start = function () { };
-        Background.prototype.Update = function () { };
-        Background.prototype.Reset = function () { };
-        Background.prototype.Move = function () { };
+        // Functions
+        Background.prototype.Start = function () {
+            //this.Reset();
+        };
+        Background.prototype.Update = function () {
+            this.Move();
+            this.CheckBound();
+        };
+        Background.prototype.Reset = function () {
+            // Reset my background y position.
+            console.log("RESET!");
+        };
+        Background.prototype.Move = function () {
+            this.y += this.speedY;
+        };
         // Collision Detection
-        Background.prototype.CheckBound = function () { };
+        Background.prototype.CheckBound = function () {
+            if (this.y >= 0) {
+                this.Reset();
+            }
+        };
         return Background;
     }(createjs.Bitmap));
     objects.Background = Background;

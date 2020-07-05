@@ -14,9 +14,9 @@
     let currentState:number;
 
     assetManifest = [
-        {id:"startButton", src:"./Assets/StartButton.png"},
-        {id:"nextButton", src:"./Assets/NextButton.png"},
-        {id:"backButton", src:"./Assets/BackButton.png"},
+        {id:"startButton", src:"./Assets/startButton.png"},
+        {id:"nextButton", src:"./Assets/nextButton.png"},
+        {id:"backButton", src:"./Assets/backButton.png"},
         {id:"background", src:"./Assets/background.png"},
         {id:"player", src:"./Assets/spaceship.png"}
     ];
