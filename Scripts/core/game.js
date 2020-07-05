@@ -1,15 +1,19 @@
-// Imidiate Invoked Anonymous Function
+// Immediate Invoked Anonymous Function
 (function () {
     // Global Game Variables
     var canvas = document.getElementById("canvas");
     var stage;
-    //let helloLabel: createjs.Text;
-    var helloLabel;
-    var clickMeButton;
     var assetManager;
     var assetManifest;
+    // Store current scene information
+    var currentScene;
+    var currentState;
     assetManifest = [
-        { id: "clickMeButton", src: "./Assets/button.png" }
+        { id: "startButton", src: "./Assets/StartButton.png" },
+        { id: "nextButton", src: "./Assets/NextButton.png" },
+        { id: "backButton", src: "./Assets/BackButton.png" },
+        { id: "background", src: "./Assets/background.png" },
+        { id: "player", src: "./Assets/spaceship.png" }
     ];
     function Init() {
         console.log("Initializing Start");
@@ -17,39 +21,50 @@
         assetManager.installPlugin(createjs.Sound);
         assetManager.loadManifest(assetManifest);
         assetManager.on("complete", Start, this);
-        //Start();
     }
     function Start() {
         console.log("Starting Application...");
+        // Initialize CreateJS
         stage = new createjs.Stage(canvas);
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", Update);
+        // Set up default game states -- State Machine
+        objects.Game.stage = stage;
+        objects.Game.currentScene = config.Scene.START;
+        currentState = config.Scene.START;
         Main();
     }
     function Update() {
+        // Has my state changed since the last check?
+        if (currentState != objects.Game.currentScene) {
+            console.log("Changing scenes to " + objects.Game.currentScene);
+            Main();
+        }
+        currentScene.Update();
         stage.update();
-        // Movement here
-        //helloLabel.scaleX += 0.001;
-        //helloLabel.scaleY += 0.001;
-        //helloLabel.rotation += 5;
-    }
-    function clickMeButtonClicked() {
-        helloLabel.text = "Clicked";
-        console.log("I am clicked");
     }
     function Main() {
         console.log("Game Start");
-        //helloLabel = new createjs.Text("Hello World!", "40 px Consolas", "#000000");
-        helloLabel = new objects.Label("Hello Class!", "40px", "Consolas", "#000000", 320, 240, true);
-        //helloLabel.x = 100;
-        //helloLabel.y = 100;
-        clickMeButton = new objects.Button(assetManager, "clickMeButton", 320, 340);
-        clickMeButton.regY = 50;
-        clickMeButton.regX = 50;
-        clickMeButton.on("click", clickMeButtonClicked);
-        stage.addChild(helloLabel);
-        stage.addChild(clickMeButton);
+        // Finite State Machine
+        switch (objects.Game.currentScene) {
+            case config.Scene.START:
+                stage.removeAllChildren();
+                currentScene = new scenes.StartScene(assetManager);
+                stage.addChild(currentScene);
+                break;
+            case config.Scene.GAME:
+                stage.removeAllChildren();
+                currentScene = new scenes.PlayScene(assetManager);
+                stage.addChild(currentScene);
+                break;
+            case config.Scene.OVER:
+                stage.removeAllChildren();
+                currentScene = new scenes.GameOverScene(assetManager);
+                stage.addChild(currentScene);
+                break;
+        }
+        currentState = objects.Game.currentScene;
     }
     window.onload = Init;
 })();

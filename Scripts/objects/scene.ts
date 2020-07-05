@@ -7,7 +7,7 @@ module objects {
             super();
             this.assetManager = assetManager;
         }
-
+        // Methods
         public Start():void{}
         public Update():void{}
         public Main():void{}
